@@ -61,7 +61,7 @@ async def main():
 
     async with websockets.serve(
         echo,
-        host="localhost",
+        host="",
         port=8080,
         process_request=health_check,
     ):
