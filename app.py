@@ -1,14 +1,22 @@
 import asyncio
 import http
 import signal
-
 import websockets
-
+import json
+from all_vuln_one_var import run_program
+async def hello():  # put application's code here
+    await run_program()
+    return json({'about': "Hello world"})
 
 async def echo(websocket):
     async for message in websocket:
-        await websocket.send(message)
+        print(message)
+        message=message.split(" ")
+        if message[0] == "start":
+            final_message = run_program(message[1])
+            print("jjj",final_message)
 
+        await websocket.send(json.dumps(final_message))
 
 async def health_check(path, request_headers):
     if path == "/healthz":
